@@ -4,7 +4,7 @@ export const isString = (variable) => {
 
 /* Start generate random hex color code functions from https://code.tutsplus.com/tutorials/how-to-code-a-random-color-generator-in-javascript--cms-39861. 
 TODO: Is there a better way to achieve this? */
-export const generateRandomColorHexCode = () => {
+export const generateRandomHexColorCode = () => {
     // console.log("Gen color");
     let [r,g,b] = randomRgbColor();
  
