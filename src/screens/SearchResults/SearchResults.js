@@ -3,6 +3,7 @@ import { FlatList, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { openLibraryAPI } from '../../constants/openLibraryAPI';
+import BookCard from '../../components/BookCard/BookCard';
 import Loading from '../../components/Loading/Loading';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import theme from '../../constants/theme';
@@ -75,7 +76,7 @@ const SearchResults = ({route}) => {
             .catch(console.error);
     }
 
-    const renderItem = ({item}) => <Text>{item.title}</Text>;
+    const renderItem = ({item}) => <BookCard item={item}/>;
 
     const renderSearchMoreBooksSpinner = () => {
         if (SearchService.isBookSearchInProgress) 
