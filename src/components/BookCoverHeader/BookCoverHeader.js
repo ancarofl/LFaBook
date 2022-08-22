@@ -6,12 +6,12 @@ import ArrowIcon from '../../../assets/ArrowIcon';
 import BookIcon from '../../../assets/BookIcon';
 import { openLibraryAPI } from '../../constants/openLibraryAPI';
 import { generateRandomHexColorCode } from '../../util/Helpers';
+import ReadingAndWishListButtons from '../ReadingAndWishListButtons/ReadingAndWishListButtons';
 import styles from './BookCoverHeaderStyles';
 
 const BookCoverHeader = (props) => {
     const navigation = useNavigation();
     const book = props.book;
-    const bookIconColor = generateRandomHexColorCode(); 
 
     const renderBookCover = () => {
         if (book.cover_i) {
@@ -22,7 +22,7 @@ const BookCoverHeader = (props) => {
                 />
             );
         }
-        return <BookIcon height={150} width={120} color={bookIconColor}/>;
+        return <BookIcon height={150} width={120} color={generateRandomHexColorCode()}/>;
     }
 
     return (
@@ -40,6 +40,7 @@ const BookCoverHeader = (props) => {
                     >
                         <ArrowIcon/>
                     </TouchableOpacity>
+                    <ReadingAndWishListButtons book={book}/>
                 </View>
                 <View style={styles.bookImageWrapper}>
                     {renderBookCover()}
