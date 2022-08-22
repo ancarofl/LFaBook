@@ -4,6 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 
 import BookIcon from '../../../assets/BookIcon';
 import { openLibraryAPI } from "../../constants/openLibraryAPI";
+import ReadingAndWishListButtons from '../ReadingAndWishListButtons/ReadingAndWishListButtons';
 import styles from './BookCardStyles';
 
 const BookCard = ({item}) => {
@@ -39,6 +40,7 @@ const BookCard = ({item}) => {
                     <Text numberOfLines={1} style={styles.author}>{item.author_name?.join(', ')}</Text>
                     <View style={styles.authorAndListButtonsContainer}>
                         <Text style={styles.year}>{item.first_publish_year}</Text>
+                        <ReadingAndWishListButtons book={item} height={20} width={20}/>
                     </View>
                 </View>  
             </View>
