@@ -6,11 +6,11 @@ import { SearchProvider } from "./SearchProvider";
 import { SearchContext } from "./SearchProvider";
 
 /** SearchProvider contains 2 methods and 3 states. In order to test if they behave as expected, create a test component which implements all of them:
-- searchBook
-- getWorkDescription
-- isNewBookSearchInProgress
-- isBookSearchInProgress
-isGetWorkDescriptionInProgress
+	- searchBook
+	- getWorkDescription
+	- isNewBookSearchInProgress
+	- isBookSearchInProgress
+	- isGetWorkDescriptionInProgress
 */
 export const TestComponent = () => {
     const SearchService = useContext(SearchContext);
