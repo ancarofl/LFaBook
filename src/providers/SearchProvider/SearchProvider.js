@@ -1,13 +1,15 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import axios from "axios";
 
 import { openLibraryAPI } from "../../constants/openLibraryAPI";
+import { getDescription } from './SearchProviderHelpers';
 
 export const SearchContext = React.createContext()
 
 export const SearchProvider = ({ children }) => {
     const [isNewBookSearchInProgress, setIsNewBookSearchInProgress] = useState(false);
     const [isBookSearchInProgress, setIsBookSearchInProgress] = useState(false);
+    const [isGetWorkDescriptionInProgress, setIsGetWorkDescriptionInProgress] = useState(false);
 
     // A new book search has the default offset. Otherwise we append offset results to existing results to get an infinite scroll effect.
     const isNewBookSearch = (offset) => {
@@ -30,11 +32,26 @@ export const SearchProvider = ({ children }) => {
             });
     }
 
+    const getWorkDescription = async (id) => {
+        setIsGetWorkDescriptionInProgress(true);
+
+        return axios.get("https://openlibrary.org/" + id + ".json")
+            .then(function(response) {
+                return getDescription(response.data?.description);
+            }).catch(function(error) {
+                console.log(error);
+            }).finally(function() {
+                setIsGetWorkDescriptionInProgress(false);
+            });
+    }
+
     return (
         <SearchContext.Provider value={{
             searchBook,
             isNewBookSearchInProgress,
             isBookSearchInProgress,
+            getWorkDescription,
+            isGetWorkDescriptionInProgress
         }}>
             {children}
         </SearchContext.Provider>

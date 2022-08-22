@@ -1,14 +1,18 @@
 import React from 'react';
 import { Image, Text, TouchableOpacity, View } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 import BookIcon from '../../../assets/BookIcon';
 import { openLibraryAPI } from "../../constants/openLibraryAPI";
 import styles from './BookCardStyles';
 
 const BookCard = ({item}) => {
+    const navigation = useNavigation();
 
     const handlePressItem = () => {
-        console.log("Press on book");
+        navigation.navigate('BookSingleScreen', {
+            'item': item
+        });
     }
 
     const renderBookCover = () => {

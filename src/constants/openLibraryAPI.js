@@ -9,4 +9,7 @@ export const openLibraryAPI = {
     COVER_IMAGE_SMALL_SUFFIX: "-S.jpg",
     COVER_IMAGE_MEDIUM_SUFFIX: "-M.jpg",
     COVER_IMAGE_LARGE_SUFFIX: "-L.jpg",
+
+    /* Links */
+    VOLUNTEER_LINK: "https://openlibrary.org/volunteer",    
 };

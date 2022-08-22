@@ -4,4 +4,8 @@ export default StyleSheet.create({
     safeAreaContainer: {
         flex: 1,
     },
+    link: {
+        color: 'blue',
+        textDecorationLine: 'underline',
+    },
 });
