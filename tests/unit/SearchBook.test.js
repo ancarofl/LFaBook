@@ -2,16 +2,9 @@ import React, { useContext, useState } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import { render, fireEvent, waitFor } from "@testing-library/react-native";
 
-import { SearchProvider } from "./SearchProvider";
-import { SearchContext } from "./SearchProvider";
+import { SearchProvider } from "../../src/providers/SearchProvider/SearchProvider";
+import { SearchContext } from "../../src/providers/SearchProvider/SearchProvider";
 
-/** SearchProvider contains 2 methods and 3 states. In order to test if they behave as expected, create a test component which implements all of them:
-	- searchBook
-	- getWorkDescription
-	- isNewBookSearchInProgress
-	- isBookSearchInProgress
-	- isGetWorkDescriptionInProgress
-*/
 export const TestComponent = () => {
     const SearchService = useContext(SearchContext);
 
@@ -19,7 +12,6 @@ export const TestComponent = () => {
 	const [ssearchBookAuthorResult, setSsearchBookAuthorResult] = useState();
 	const [ssearchBookYearResult, setSsearchBookYearResult] = useState();
 
-	const [getWorkDescriptionResult, setGetWorkDescriptionResult] = useState('The Lord of the Rings Deluxe Edition');
 
     const handleSearchBookPress = async () => {
 		const results = await SearchService.searchBook(9780141806723, 1, 0);
@@ -28,10 +20,6 @@ export const TestComponent = () => {
 		setSsearchBookAuthorResult(results.docs[0].author_name[0]);
 		setSsearchBookYearResult(results.docs[0].first_publish_year);
     };
-
-	const handleGetWorkDescriptionPress = async () => {
-
-	}
   
     return (
 		<View>
@@ -39,24 +27,20 @@ export const TestComponent = () => {
 			<Text testID="test-search-title-result">{ssearchBookTitleResult}</Text>
 			<Text testID="test-search-author-result">{ssearchBookAuthorResult}</Text>
 			<Text testID="test-search-year-result">{ssearchBookYearResult}</Text>
-
-			<TouchableOpacity testID="test-work-description" onPress={handleGetWorkDescriptionPress} />
-			<Text testID="test-work-description-result">{getWorkDescriptionResult}</Text>
 		</View>
     );
 };
 
 // This helper function is needed to wrap the TestComponent in the SearchProvider 
-const renderTestComponent = () => {
+const renderTestComponent = () =>
 	render(
 		<SearchProvider>
 			<TestComponent />
 		</SearchProvider>
 	);
-}
 
 describe("SearchProvider", () => {
-	it("searches the Open Library API for ISBN 13 9780141806723", async () => {
+	it("searches the Open Library API for ISBN 13 9780141806723 then returns the correct book title, author and first publish year", async () => {
 		const component = renderTestComponent();
 
 		const searchTouchableOpacityElement = component.getByTestId('test-search');
