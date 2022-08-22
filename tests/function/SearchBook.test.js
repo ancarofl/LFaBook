@@ -8,25 +8,25 @@ import { SearchContext } from "../../src/providers/SearchProvider/SearchProvider
 export const TestComponent = () => {
     const SearchService = useContext(SearchContext);
 
-	const [ssearchBookTitleResult, setSsearchBookTitleResult] = useState();
-	const [ssearchBookAuthorResult, setSsearchBookAuthorResult] = useState();
-	const [ssearchBookYearResult, setSsearchBookYearResult] = useState();
+	const [searchBookTitleResult, setSearchBookTitleResult] = useState();
+	const [searchBookAuthorResult, setSearchBookAuthorResult] = useState();
+	const [searchBookYearResult, setSearchBookYearResult] = useState();
 
 
     const handleSearchBookPress = async () => {
 		const results = await SearchService.searchBook(9780141806723, 1, 0);
 
-        setSsearchBookTitleResult(results.docs[0].title);
-		setSsearchBookAuthorResult(results.docs[0].author_name[0]);
-		setSsearchBookYearResult(results.docs[0].first_publish_year);
+        setSearchBookTitleResult(results.docs[0].title);
+		setSearchBookAuthorResult(results.docs[0].author_name[0]);
+		setSearchBookYearResult(results.docs[0].first_publish_year);
     };
   
     return (
 		<View>
 			<TouchableOpacity testID="test-search" onPress={handleSearchBookPress} />
-			<Text testID="test-search-title-result">{ssearchBookTitleResult}</Text>
-			<Text testID="test-search-author-result">{ssearchBookAuthorResult}</Text>
-			<Text testID="test-search-year-result">{ssearchBookYearResult}</Text>
+			<Text testID="test-search-title-result">{searchBookTitleResult}</Text>
+			<Text testID="test-search-author-result">{searchBookAuthorResult}</Text>
+			<Text testID="test-search-year-result">{searchBookYearResult}</Text>
 		</View>
     );
 };
