@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
-
 import { colors } from "../../constants/colors"
+import { sizes } from '../../constants/sizes';
 
 export default StyleSheet.create({
     searchBar: {
@@ -20,5 +20,9 @@ export default StyleSheet.create({
         borderRadius: 10,
         margin: 5,
         padding: 10,
+    },
+    searchingActivityIndicator: {
+        height: sizes.defaultIconSize,
+        width: sizes.defaultIconSize,
     }
 });
