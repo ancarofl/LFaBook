@@ -19,8 +19,6 @@ export const SearchProvider = ({ children }) => {
     const searchBook = async (searchTerm, limit = openLibraryAPI.defaultLimit, offset = openLibraryAPI.defaultOffset) => {
         isNewBookSearch(offset) ? setIsNewBookSearchInProgress(true) : setIsBookSearchInProgress(true);
 
-        console.log("Searching for " , limit, 'books matching the term ', searchTerm , ' starting at offset' , offset);  
-
         return axios.get(openLibraryAPI.SEARCH_ENDPOINT + searchTerm + '&fields=title,author_name,first_publish_year,cover_i,key&limit=' + limit + '&offset=' + offset)
             .then(function(response) {
                 return response.data;

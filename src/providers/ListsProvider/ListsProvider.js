@@ -10,11 +10,6 @@ import { storeItemToStorage } from '../../util/Helpers';
 export const ListsContext = React.createContext()
 
 export const ListsProvider = ({ children }) => {
-    useEffect(() => {
-        // clearAsyncStorage();
-        // seeAsyncStorageContent();
-    }, [])
-
     const [readingList, setReadingList] = useState([]);
     const [isReadingListLoadedFromLocalStorage, setIsReadingListLoadedFromLocalStorage] = useState(false);
 
@@ -22,12 +17,10 @@ export const ListsProvider = ({ children }) => {
     const [isWishListLoadedFromLocalStorage, setIsWishListLoadedFromLocalStorage] = useState(false);
 
     useEffect(() => {
-        console.log("RL CHANGED", readingList);
         ! isReadingListLoadedFromLocalStorage ? loadReadingList() : storeItemToStorage(constants.READING_LIST_STORAGE_KEY, readingList);
     }, [readingList])
 
     useEffect(() => {
-        console.log("WL CHANGED", wishList);
         ! isWishListLoadedFromLocalStorage ? loadWishList() : storeItemToStorage(constants.WISH_LIST_STORAGE_KEY, wishList);
     }, [wishList])
 

@@ -19,15 +19,11 @@ const SearchResults = ({route}) => {
     const [resultsCount, setResultsCount] = useState(0);
 
     useEffect(() => {
-        console.log("SEARCH OFFSET CHANGED TO ", searchOffset);
-
         fetchMoreBooks()
             .catch(console.error);
     }, [searchOffset])
 
     useEffect(() => {
-        console.log("SEARCH TEXT CHANGED TO", searchText);
-
         fetchBooks()
             .catch(console.error);
     }, [searchText])
@@ -42,17 +38,13 @@ const SearchResults = ({route}) => {
     }
 
     const fetchBooks = async () => {
-        console.log("FETCH BOOKS");
-
         const results = await SearchService.searchBook(searchText, openLibraryAPI.defaultLimit, openLibraryAPI.defaultOffset);
         setBooks(results.docs);
         setResultsCount(results.numFound);
         setSearchOffset(openLibraryAPI.defaultOffset);
     }
 
-    const fetchMoreBooks = async () => {
-        console.log("FETCH MORE BOOKS");
-        
+    const fetchMoreBooks = async () => {        
         const results = await SearchService.searchBook(searchText, openLibraryAPI.defaultLimit, searchOffset);
         searchOffset === 0 ? setBooks(results.docs) : setBooks([...books, ...results.docs]);
     }
@@ -64,8 +56,6 @@ const SearchResults = ({route}) => {
     }
 
     const handlePressSearchButton = async (text) => {
-        console.log("Handle press search bar button");
-
         isSearchTextUnchanged(text) ? redoPreviousSearch() : setSearchText(text);
     }
 

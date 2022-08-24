@@ -25,7 +25,7 @@ export const storeItemToStorage = async (key, value) => {
 /* Start generate random hex color code functions from https://code.tutsplus.com/tutorials/how-to-code-a-random-color-generator-in-javascript--cms-39861. 
 TODO: Is there a better way to achieve this? */
 export const generateRandomHexColorCode = () => {
-    // console.log("Gen color");
+    console.log("Gen color");
     let [r,g,b] = randomRgbColor();
  
     let hr = r.toString(16).padStart(2, '0');

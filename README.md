@@ -14,6 +14,7 @@ https://user-images.githubusercontent.com/35558437/185999153-063ca24a-2217-4f53-
 ## Planned features/future ideas ##
 - Implement (more) tests
 - Implement image caching
+- Improve error handling
 - Use SQLite to persist read list and wish list
 - Cloud sync of the lists
 - Read list + wish list separate screens
