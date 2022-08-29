@@ -10,34 +10,28 @@ import { storeItemToStorage } from '../../util/Helpers';
 export const ListsContext = React.createContext()
 
 export const ListsProvider = ({ children }) => {
-    const [readingList, setReadingList] = useState([]);
-    const [isReadingListLoadedFromLocalStorage, setIsReadingListLoadedFromLocalStorage] = useState(false);
-
-    const [wishList, setWishList] = useState([]);
-    const [isWishListLoadedFromLocalStorage, setIsWishListLoadedFromLocalStorage] = useState(false);
+    const [bookLists, setBookLists] = useState({readingList: [], wishList: []});
+    const [areBookListsLoadedFromStorage, setAreBookListsLoadedFromStorage] = useState(false);
 
     useEffect(() => {
-        ! isReadingListLoadedFromLocalStorage ? loadReadingList() : storeItemToStorage(constants.READING_LIST_STORAGE_KEY, readingList);
-    }, [readingList])
+        clearAsyncStorage();
+        seeAsyncStorageContent();
+    }, [])
 
     useEffect(() => {
-        ! isWishListLoadedFromLocalStorage ? loadWishList() : storeItemToStorage(constants.WISH_LIST_STORAGE_KEY, wishList);
-    }, [wishList])
+        if (! areBookListsLoadedFromStorage) loadBookLists([constants.READING_LIST_STORAGE_KEY, constants.WISH_LIST_STORAGE_KEY]);
+    }, [areBookListsLoadedFromStorage, bookLists])
 
-    const loadReadingList = async () => {
-        const list = await getItemFromStorage(constants.READING_LIST_STORAGE_KEY);
-        setIsReadingListLoadedFromLocalStorage(true);
-        if (list) setReadingList(list);
-    }
-
-    const loadWishList = async () => {
-        const list = await getItemFromStorage(constants.WISH_LIST_STORAGE_KEY);
-        setIsWishListLoadedFromLocalStorage(true);
-        if (list) setWishList(list);
+    const loadBookLists = async (listKeys) => {
+        for (let i = 0 ; i < listKeys.length; i++) {
+            const list = await getItemFromStorage(listKeys[i]);
+            if (list) setBookLists((bookLists) => ({...bookLists, [listKeys[i]]: list}));
+        }  
+        setAreBookListsLoadedFromStorage(true);   
     }
 
     const isBookOnList = (listKey, bookKey) => {
-        return listKey === constants.READING_LIST_STORAGE_KEY ? readingList.includes(bookKey) : wishList.includes(bookKey);
+        return bookLists[listKey].includes(bookKey);
     }
 
     const updateList = (listKey, bookKey) => {
@@ -45,18 +39,17 @@ export const ListsProvider = ({ children }) => {
     }
 
     const addBookToList = (listKey, bookKey) => {
-        listKey === constants.READING_LIST_STORAGE_KEY ? setReadingList([...readingList, bookKey]) : setWishList([...wishList, bookKey]);
+        setBookLists((bookLists) => ({...bookLists, [listKey]: [...bookLists[listKey], bookKey]}))
     }
 
     const removeBookFromList = (listKey, bookKey) => {
-        listKey === constants.READING_LIST_STORAGE_KEY ?
-            setReadingList((prevState) => prevState.filter((prevItem) => prevItem !== bookKey)) : setWishList((prevState) => prevState.filter((prevItem) => prevItem !== bookKey));
+        setBookLists((bookLists) => 
+            ({...bookLists, [listKey]: ((prevState) => prevState.filter((prevItem) => prevItem !== bookKey)) }))    
     }
 
     return (
         <ListsContext.Provider value={{ 
-                readingList, setReadingList,
-                wishList, setWishList,
+                bookLists, setBookLists,
                 isBookOnList, updateList
             }}>
             {children}
