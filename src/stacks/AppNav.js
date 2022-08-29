@@ -6,6 +6,7 @@ import Search from '../screens/Search/Search';
 import SearchResults from '../screens/SearchResults/SearchResults';
 import { ListsProvider } from '../providers/ListsProvider/ListsProvider';
 import { SearchProvider } from '../providers/SearchProvider/SearchProvider';
+import UserLists from '../screens/UserLists/UserLists';
 
 const Stack = createNativeStackNavigator();
 
@@ -18,6 +19,7 @@ const AppNav = () => {
 					headerShown: false
 				}}
 			>
+				<Stack.Screen component={UserLists} name="UserListsScreen" />
 				<Stack.Screen component={Search} name="SearchScreen"/>
 				<Stack.Screen component={SearchResults} name="SearchResultsScreen"/>
 				<Stack.Screen component={BookSingle} name="BookSingleScreen"/>
