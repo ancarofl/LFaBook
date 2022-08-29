@@ -19,7 +19,15 @@ export const ListsProvider = ({ children }) => {
     }, [])
 
     useEffect(() => {
-        if (! areBookListsLoadedFromStorage) loadBookLists([constants.READING_LIST_STORAGE_KEY, constants.WISH_LIST_STORAGE_KEY]);
+        if (! areBookListsLoadedFromStorage) {
+            loadBookLists([constants.READING_LIST_STORAGE_KEY, constants.WISH_LIST_STORAGE_KEY]);
+        } 
+        else {
+            for (let i = 0 ; i < listKeys.length; i++) {
+                storeItemToStorage(listKeys[i], bookLists[listKeys[i]]);
+            } 
+        }
+            
     }, [areBookListsLoadedFromStorage, bookLists])
 
     const loadBookLists = async (listKeys) => {
