@@ -14,7 +14,7 @@ export const ListsProvider = ({ children }) => {
     const [areBookListsLoadedFromStorage, setAreBookListsLoadedFromStorage] = useState(false);
 
     useEffect(() => {
-        clearAsyncStorage();
+        //clearAsyncStorage();
         seeAsyncStorageContent();
     }, [])
 
@@ -23,6 +23,7 @@ export const ListsProvider = ({ children }) => {
             loadBookLists([constants.READING_LIST_STORAGE_KEY, constants.WISH_LIST_STORAGE_KEY]);
         } 
         else {
+            listKeys = [constants.READING_LIST_STORAGE_KEY, constants.WISH_LIST_STORAGE_KEY];
             for (let i = 0 ; i < listKeys.length; i++) {
                 storeItemToStorage(listKeys[i], bookLists[listKeys[i]]);
             } 
@@ -51,8 +52,10 @@ export const ListsProvider = ({ children }) => {
     }
 
     const removeBookFromList = (listKey, bookKey) => {
+        const newList = bookLists[listKey].filter((prevItem) => prevItem !== bookKey);
+
         setBookLists((bookLists) => 
-            ({...bookLists, [listKey]: ((prevState) => prevState.filter((prevItem) => prevItem !== bookKey)) }))    
+            ({...bookLists, [listKey]: newList }))    
     }
 
     return (
