@@ -21,8 +21,8 @@ export default StyleSheet.create({
         alignItems: 'center',
     },
     thumbnail: {
+        borderRadius: 10,
         height: 180,
         width: 120,
-        borderRadius: 10,
     }
 });

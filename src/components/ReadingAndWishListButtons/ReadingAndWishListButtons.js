@@ -16,7 +16,7 @@ const ReadingAndWishListButtons = (props) => {
         ListsService.updateList(listKey, book.key);
     }
 
-    const iconColor = (listKey) => { return ListsService.isBookOnList(listKey, book.key) ? 'yellow' : colors.white; }
+    const iconColor = (listKey) => { return ListsService.isBookOnList(listKey, book.key) ? colors.primaryButtonIconActive : colors.primaryButtonIcon; }
 
     return (
         <View style={styles.listButtonsContainer}>

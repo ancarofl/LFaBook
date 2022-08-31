@@ -48,10 +48,7 @@ export const ListsProvider = ({ children }) => {
     }
 
     return (
-        <ListsContext.Provider value={{ 
-                bookLists, setBookLists,
-                isBookOnList, updateList
-            }}>
+        <ListsContext.Provider value={{ bookLists, setBookLists, isBookOnList, updateList }}>
             {children}
         </ListsContext.Provider>
     )

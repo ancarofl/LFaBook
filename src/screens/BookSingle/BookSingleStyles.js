@@ -1,5 +1,8 @@
 import { StyleSheet } from 'react-native';
 
+import { colors } from '../../constants/colors';
+import { sizes } from '../../constants/sizes';
+
 export default StyleSheet.create({
     scrollView: {
         flexGrow: 1,
@@ -11,9 +14,9 @@ export default StyleSheet.create({
         padding: 20,
     },
     title: {
+        color: colors.blue,
+        fontSize: sizes.fontExtraLarge,
         textAlign: 'left',
-        color: "blue",
-        fontSize: 26
     },
     authorPublishYearContainer: {
         flexDirection: 'row',
@@ -22,16 +25,16 @@ export default StyleSheet.create({
         marginVertical: 10,
     },
     authorPublishYearText: {
-        fontSize: 20,
+        fontSize: sizes.fontBase,
     },
     missingDescriptionContainer: {
         flex: 1,
         justifyContent: 'center',
     },
     missingDescriptionText: {
-        fontSize: 18,
+        fontSize: sizes.fontSmall,
     },
     link: {
-        fontSize: 18,
+        fontSize: sizes.fontSmall,
     }
 });
