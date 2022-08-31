@@ -23,7 +23,7 @@ const Search = () => {
     return (
         <SafeAreaView style={theme.safeAreaContainer}>
             <View style={styles.container}>
-                <SearchBar handlePressSearchButton={handlePressSearchButton} searchInputText={'Lord of the rings'}/>
+                <SearchBar handlePressSearchButton={handlePressSearchButton} />
             </View>
         </SafeAreaView>
     );
