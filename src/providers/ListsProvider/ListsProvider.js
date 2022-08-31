@@ -10,11 +10,11 @@ import { storeItemToStorage } from '../../util/Helpers';
 export const ListsContext = React.createContext()
 
 export const ListsProvider = ({ children }) => {
-    const [bookLists, setBookLists] = useState({readingList: [], wishList: []});
+    const [bookLists, setBookLists] = useState({bookDemoReadingList: [], bookDemoWishList: []});
     const [areBookListsLoadedFromStorage, setAreBookListsLoadedFromStorage] = useState(false);
 
     useEffect(() => {
-        //clearAsyncStorage();
+        // clearAsyncStorage();
         seeAsyncStorageContent();
     }, [])
 
