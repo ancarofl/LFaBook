@@ -23,13 +23,7 @@ https://user-images.githubusercontent.com/35558437/185999153-063ca24a-2217-4f53-
 - Button animations
 - App themes
 
-## Development process
-Development time: ~7h
-
-Challenges: testing (no prior React Native testing experience)
-
 # Local development  #
-
 Clone the repo then from the project's root folder:
 - run `npm install`
 - run `npx react-native start`
