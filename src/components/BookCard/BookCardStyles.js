@@ -1,45 +1,47 @@
 import { StyleSheet } from 'react-native';
 
+import { colors } from '../../constants/colors';
+import { sizes } from '../../constants/sizes';
+
 export default StyleSheet.create({
     content: {
-		paddingVertical: 12,
-		paddingHorizontal: 10,
-		marginVertical: 10,
-		borderColor: 'grey',
+		borderColor: colors.grey,
 		borderWidth: 1,   
 		flexDirection: 'row',
 		height: 180,
+        marginVertical: 10,
+        paddingVertical: 12,
+		paddingHorizontal: 10,
     },
 	thumbnailContainer: {
-        borderColor: 'orange',
+        borderColor: colors.grey,
         borderWidth: 2,
+        justifyContent: 'flex-start',
         overflow: 'hidden',
-        justifyContent:'flex-start'
     },
 	thumbnail: {
         width: 120,
         height: 200,
     },
     title: {
+        color: colors.blue,
+        fontSize: sizes.fontLarge,
         textAlign: 'left',
-        color: "blue",
-        fontSize: 22
     },
     author: {
-        fontSize: 18,
+        fontSize: sizes.fontSmall,
     },
     year: {
-        fontSize: 18,
         alignSelf: 'center',
+        fontSize: sizes.fontSmall,
     },
     cardContent: {
         flexShrink: 1,
-        paddingHorizontal: 8,
         justifyContent: 'space-between',
+        paddingHorizontal: 8,
         width: '100%',
     },
     authorAndListButtonsContainer: {
-        alugnContent: 'center',
         flexDirection: 'row',
         justifyContent: 'space-between',
     },

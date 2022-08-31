@@ -1,43 +1,37 @@
 import React, { useEffect, useState } from 'react';
 
 import { constants } from "../../constants/constants";
-import { clearAsyncStorage } from '../../util/Helpers';
 import { getItemFromStorage } from '../../util/Helpers';
-import { seeAsyncStorageContent } from '../../util/Helpers';
 import { storeItemToStorage } from '../../util/Helpers';
 
-
-export const ListsContext = React.createContext()
+export const ListsContext = React.createContext();
 
 export const ListsProvider = ({ children }) => {
-    const [readingList, setReadingList] = useState([]);
-    const [isReadingListLoadedFromLocalStorage, setIsReadingListLoadedFromLocalStorage] = useState(false);
+    const CURRENT_LISTS_KEYS = [constants.READING_LIST_STORAGE_KEY, constants.WISH_LIST_STORAGE_KEY];
 
-    const [wishList, setWishList] = useState([]);
-    const [isWishListLoadedFromLocalStorage, setIsWishListLoadedFromLocalStorage] = useState(false);
-
-    useEffect(() => {
-        ! isReadingListLoadedFromLocalStorage ? loadReadingList() : storeItemToStorage(constants.READING_LIST_STORAGE_KEY, readingList);
-    }, [readingList])
+    const [bookLists, setBookLists] = useState({bookDemoReadingList: [], bookDemoWishList: []});
+    const [areBookListsLoadedFromStorage, setAreBookListsLoadedFromStorage] = useState(false);
 
     useEffect(() => {
-        ! isWishListLoadedFromLocalStorage ? loadWishList() : storeItemToStorage(constants.WISH_LIST_STORAGE_KEY, wishList);
-    }, [wishList])
+        ! areBookListsLoadedFromStorage ? loadBookListsFromStorage(CURRENT_LISTS_KEYS) : storeBookListsToStorage(CURRENT_LISTS_KEYS);
+    }, [areBookListsLoadedFromStorage, bookLists])
 
-    const loadReadingList = async () => {
-        const list = await getItemFromStorage(constants.READING_LIST_STORAGE_KEY);
-        setIsReadingListLoadedFromLocalStorage(true);
-        if (list) setReadingList(list);
+    const loadBookListsFromStorage = async (listKeys) => {
+        for (let i = 0 ; i < listKeys.length; i++) {
+            const list = await getItemFromStorage(listKeys[i]);
+            if (list) setBookLists((bookLists) => ({...bookLists, [listKeys[i]]: list}));
+        }  
+        setAreBookListsLoadedFromStorage(true);   
     }
 
-    const loadWishList = async () => {
-        const list = await getItemFromStorage(constants.WISH_LIST_STORAGE_KEY);
-        setIsWishListLoadedFromLocalStorage(true);
-        if (list) setWishList(list);
+    const storeBookListsToStorage = (listsKeys) => {
+        for (let i = 0 ; i < listsKeys.length; i++) {
+            storeItemToStorage(listsKeys[i], bookLists[listsKeys[i]]);
+        } 
     }
 
     const isBookOnList = (listKey, bookKey) => {
-        return listKey === constants.READING_LIST_STORAGE_KEY ? readingList.includes(bookKey) : wishList.includes(bookKey);
+        return bookLists[listKey].includes(bookKey);
     }
 
     const updateList = (listKey, bookKey) => {
@@ -45,20 +39,16 @@ export const ListsProvider = ({ children }) => {
     }
 
     const addBookToList = (listKey, bookKey) => {
-        listKey === constants.READING_LIST_STORAGE_KEY ? setReadingList([...readingList, bookKey]) : setWishList([...wishList, bookKey]);
+        setBookLists((bookLists) => ({...bookLists, [listKey]: [...bookLists[listKey], bookKey]}));
     }
 
     const removeBookFromList = (listKey, bookKey) => {
-        listKey === constants.READING_LIST_STORAGE_KEY ?
-            setReadingList((prevState) => prevState.filter((prevItem) => prevItem !== bookKey)) : setWishList((prevState) => prevState.filter((prevItem) => prevItem !== bookKey));
+        const listAfterItemRemoved = bookLists[listKey].filter((prevItem) => prevItem !== bookKey);
+        setBookLists((bookLists) => ({...bookLists, [listKey]: listAfterItemRemoved }));
     }
 
     return (
-        <ListsContext.Provider value={{ 
-                readingList, setReadingList,
-                wishList, setWishList,
-                isBookOnList, updateList
-            }}>
+        <ListsContext.Provider value={{ bookLists, setBookLists, isBookOnList, updateList }}>
             {children}
         </ListsContext.Provider>
     )
