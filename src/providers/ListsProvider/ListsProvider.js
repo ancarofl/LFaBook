@@ -13,7 +13,7 @@ export const ListsProvider = ({ children }) => {
     const [areBookListsLoadedFromStorage, setAreBookListsLoadedFromStorage] = useState(false);
 
     useEffect(() => {
-        ! areBookListsLoadedFromStorage ? loadBookListsFromStorage(CURRENT_LISTS_KEYS) : storeListsToStorage(CURRENT_LISTS_KEYS);
+        ! areBookListsLoadedFromStorage ? loadBookListsFromStorage(CURRENT_LISTS_KEYS) : storeBookListsToStorage(CURRENT_LISTS_KEYS);
     }, [areBookListsLoadedFromStorage, bookLists])
 
     const loadBookListsFromStorage = async (listKeys) => {
@@ -24,7 +24,7 @@ export const ListsProvider = ({ children }) => {
         setAreBookListsLoadedFromStorage(true);   
     }
 
-    const storeListsToStorage = (listsKeys) => {
+    const storeBookListsToStorage = (listsKeys) => {
         for (let i = 0 ; i < listsKeys.length; i++) {
             storeItemToStorage(listsKeys[i], bookLists[listsKeys[i]]);
         } 
