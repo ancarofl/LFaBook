@@ -4,7 +4,7 @@ import { constants } from "../../constants/constants";
 import { getItemFromStorage } from '../../util/Helpers';
 import { storeItemToStorage } from '../../util/Helpers';
 
-export const ListsContext = React.createContext()
+export const ListsContext = React.createContext();
 
 export const ListsProvider = ({ children }) => {
     const CURRENT_LISTS_KEYS = [constants.READING_LIST_STORAGE_KEY, constants.WISH_LIST_STORAGE_KEY];
