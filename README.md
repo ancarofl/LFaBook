@@ -31,6 +31,7 @@ Challenges: testing (no prior React Native testing experience)
 # Local development  #
 
 Clone the repo then from the project's root folder:
+- run `npm install`
 - run `npx react-native start`
 - in a new terminal run `npx react-native run-ios` or `npx react-native run-android`
 
